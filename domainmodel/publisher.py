@@ -12,7 +12,8 @@ class Publisher:
 
     @name.setter
     def name(self, publisher_name):
-        self.__name = publisher_name
+        if isinstance(publisher_name, str) and publisher_name.strip() != "":
+            self.__name = publisher_name.strip()
 
     def __repr__(self):
         # we use access via the property here

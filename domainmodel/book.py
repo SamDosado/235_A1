@@ -1,11 +1,13 @@
 from domainmodel.publisher import Publisher
 from domainmodel.author import Author
+
+
 class Book:
 
     def __init__(self, book_id: int, book_title: str):
         if not isinstance(book_id, int) or book_id < 0 or not isinstance(book_title, str) or book_title.strip() == "":
             raise ValueError
-        self.__book_title = book_title
+        self.__book_title = book_title.strip()
         self.__book_id = book_id
         self.__description = None
         self.__publisher = None
@@ -40,6 +42,10 @@ class Book:
     def authors(self):
         return self.__authors
 
+    @authors.setter
+    def authors(self, authors):
+        if not isinstance(authors, list)
+        self.__authors = authors
     @property
     def release_year(self):
         return self.__release_year
@@ -60,7 +66,7 @@ class Book:
             self.__ebook = ebook
 
     @property
-    def publisher(self ):
+    def publisher(self):
         return self.__publisher
 
     @publisher.setter
@@ -80,9 +86,13 @@ class Book:
         return f'<Book {self.__book_title}, book id = {self.__book_id}>'
 
     def __eq__(self, other):
+        if not isinstance(other, Book):
+            return False
         return self.__book_id == other.book_id
 
     def __lt__(self, other):
+        if not isinstance(other, Book):
+            return False
         return self.__book_id < other.book_id
 
     def __hash__(self):
