@@ -109,6 +109,7 @@ class TestPublisher:
         book8 = Book(8, "How to write test cases")
         book8.authors = authors
         assert book8.authors == authors
+        pass
 
 
     def test_book_setter_invalid(self):
