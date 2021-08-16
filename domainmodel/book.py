@@ -35,8 +35,8 @@ class Book:
 
     @description.setter
     def description(self, description):
-        if isinstance(description, str) or description.strip() != "":
-            self.__description = description
+        if isinstance(description, str) and description.strip() != "":
+            self.__description = description.strip()
 
     @property
     def authors(self):
@@ -44,8 +44,9 @@ class Book:
 
     @authors.setter
     def authors(self, authors):
-        if not isinstance(authors, list)
-        self.__authors = authors
+        if isinstance(authors, list):
+            self.__authors = authors
+
     @property
     def release_year(self):
         return self.__release_year
@@ -76,10 +77,13 @@ class Book:
 
     def add_author(self, author):
         if isinstance(author, Author):
+            for a in self.__authors:
+                if isinstance(a, Author):
+                    a.add_coauthor(author)
             self.__authors.append(author)
 
     def remove_author(self, author):
-        if isinstance(author, Author):
+        if isinstance(author, Author) and author in self.__authors:
             self.__authors.remove(author)
 
     def __repr__(self):

@@ -7,7 +7,7 @@ class Publisher:
             self.__name = publisher_name.strip()
 
     @property
-    def name(self) -> str:
+    def name(self):
         return self.__name
 
     @name.setter
@@ -20,15 +20,14 @@ class Publisher:
         return f'<Publisher {self.name}>'
 
     def __eq__(self, other):
-        if not isinstance(other, self.__class__):
+        if not isinstance(other, Publisher):
             return False
-        return other.name == self.name
+        return other.name == self.__name
 
     def __lt__(self, other):
-        if self.__name < other.name:
-            return True
-        return False
-
+        if not isinstance(other, Publisher):
+            return False
+        return self.__name < other.name
 
     def __hash__(self):
         return hash(self.__name)

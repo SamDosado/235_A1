@@ -38,7 +38,7 @@ class Author:
 
     def add_coauthor(self, coauthor):
         if not isinstance(coauthor, Author):
-            return False
+            raise ValueError
         self.__coauthors.append(coauthor)
 
     def check_if_this_author_coauthored_with(self, author):

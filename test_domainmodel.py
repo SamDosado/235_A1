@@ -91,26 +91,46 @@ class TestPublisher:
         except ValueError:
             assert True
 
-    # def test_book_setter_valid(self):
-    #     book4 = Book(4, "A Wonderful Day")
-    #     publisher = Publisher(0, "Bloomsbury")
-    #     book4.publisher = publisher
-    #     assert book4.publisher == publisher
-    #     book5 = Book(5, "Harry Potter")
-    #     book5.release_year = 1991
-    #     assert book5.release_year == 1991
-    #     book6 = Book(6, "The Lion The Witch and The Wardrobe")
-    #     book6.description = "What a good read!"
-    #     assert book5.description == "What a good read!"
-    #     book7 = Book(7, "Sorry Wrong Name")
-    #     book7.title = "This is the right name "
-    #     assert book7.title == "This is the right name"
-    #     authors = [Author(0, "Samuel Dosado"), Author(1, "John Smith")]
-    #     book8 = Book(8, "How to write test cases")
-    #     book8.authors = authors
-    #     assert book8.authors == authors
-    #
-    #
-    # def test_book_setter_invalid(self):
-    #     pass
+    def test_book_setter_valid(self):
+        book4 = Book(4, "A Wonderful Day")
+        publisher = Publisher("Bloomsbury")
+        book4.publisher = publisher
+        assert book4.publisher == publisher
+        book5 = Book(5, "Harry Potter")
+        book5.release_year = 1991
+        assert book5.release_year == 1991
+        book6 = Book(6, "The Lion The Witch and The Wardrobe")
+        book6.description = "What a good read!"
+        assert book6.description == "What a good read!"
+        book7 = Book(7, "Sorry Wrong Name")
+        book7.title = "This is the right name "
+        assert book7.title == "This is the right name"
+        authors = [Author(0, "Samuel Dosado"), Author(1, "John Smith")]
+        book8 = Book(8, "How to write test cases")
+        book8.authors = authors
+        assert book8.authors == authors
+
+
+    def test_book_setter_invalid(self):
+        book9 = Book(9, "A Wonderful Day")
+        book9.publisher = "Bloomsbury"
+        assert book9.publisher == None
+        book10 = Book(10, "Harry Potter")
+        try:
+            book10.release_year = " "
+        except ValueError:
+            assert True
+        assert book10.release_year == None
+        book11 = Book(11, "The Lion The Witch and The Wardrobe")
+        book11.description = 12
+        assert book11.description == None
+        book12 = Book(12, "Sorry Wrong Name")
+        try:
+            book12.title = 15
+        except ValueError:
+            assert True
+        assert book12.title == "Sorry Wrong Name"
+        book13 = Book(13, "How to write test cases")
+        book13.authors = "Samuel Dosado"
+        assert book13.authors == []
 
