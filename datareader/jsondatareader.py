@@ -21,11 +21,8 @@ class BooksJSONReader:
     def read_json_files(self):
         authors = []
         try:
-
             with open(self.__authors_file_name) as authors_file:
-                #print(type(authors_file),"Bitch")
                 for author in authors_file.readlines():
-                    #print(type(author), " Boy")
                     json_line = json.loads(author)
                     author = Author(int(json_line["author_id"]), json_line["name"])
                     authors.append(author)
@@ -38,9 +35,8 @@ class BooksJSONReader:
                         for author in authors:
                             if author.unique_id == int(book_author["author_id"]):
                                 book.add_author(author)
-                                authors.remove(author)
                     try:
-                        book.release_year = json_line["publication_year"]
+                        book.release_year = int(json_line["publication_year"])
                     except ValueError:
                         pass
                     book.description = json_line["description"]
