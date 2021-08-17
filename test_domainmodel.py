@@ -3,7 +3,7 @@ import pytest
 from domainmodel.publisher import Publisher
 from domainmodel.author import Author
 from domainmodel.book import Book
-
+from datareader.jsondatareader import BooksJSONReader
 
 class TestPublisher:
 
@@ -135,3 +135,14 @@ class TestPublisher:
         book13.authors = "Samuel Dosado"
         assert book13.authors == []
 
+    def test_json(self):
+        authors_file ="data/book_authors_excerpt.json"
+        book_file = "data/comic_books_excerpt.json"
+        reader = BooksJSONReader(books_file_name=book_file, authors_file_name=authors_file)
+        reader.read_json_files()
+        print("\n")
+        for data in reader.dataset_of_books:
+            print(data)
+            print(data.authors)
+            print(data.publisher)
+            print("-----")
