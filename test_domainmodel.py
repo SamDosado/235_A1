@@ -5,6 +5,7 @@ from domainmodel.author import Author
 from domainmodel.book import Book
 from datareader.jsondatareader import BooksJSONReader
 from domainmodel.user import User
+from domainmodel.books_inventory import BooksInventory
 
 class TestPublisher:
 
@@ -181,3 +182,50 @@ class TestPublisher:
         print(user.pages_read)
         print(user)
         print(f"|{user.password}|")
+
+    def test_inventory(self):
+        inventory = BooksInventory()
+        publisher1 = Publisher("Avatar Press")
+        publisher2 = Publisher("Muscle Man")
+
+        book1 = Book(17, "Lord of the Rings")
+        book1.publisher = publisher1
+
+        book2 = Book(64, "Our Memoires")
+        book2.publisher = publisher1
+
+        book3 = Book(1, "my mother")
+        book3.publisher = publisher2
+
+        inventory.add_book(book1, 20, 7)
+        inventory.add_book(book2, 30, 2)
+        inventory.add_book(book3, 20, 2)
+        print("WRITE THIS ON A NEW LINE STUPID INTERPRETER")
+        for book in inventory.inventory:
+            print(book)
+        print("---")
+        assert inventory.find_price(64) == 30
+        assert inventory.find_book(64) == book2
+        assert inventory.search_book_by_title("Our Memoires") == book2
+        assert inventory.find_stock_count(64) == 2
+
+        assert inventory.find_price(1) == 20
+        assert inventory.find_book(1) == book3
+        assert inventory.search_book_by_title("my mother") == book3
+        assert inventory.find_stock_count(1) == 2
+
+        assert inventory.find_price(17) == 20
+        assert inventory.find_book(17) == book1
+        assert inventory.search_book_by_title("Lord of the Rings") == book1
+        assert inventory.find_stock_count(17) == 7
+
+        print(inventory.find_price(64))
+        print(inventory.find_stock_count(64))
+        print(inventory.find_price(64))
+        print(inventory.find_stock_count(17))
+        print(inventory.find_book(99))
+        print(inventory.find_stock_count(17))
+        # inventory.remove_book(2)
+        # for book in inventory.inventory:
+        #     print(book)
+
